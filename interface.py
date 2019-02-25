@@ -90,11 +90,9 @@ while True:
         cmd = input('> ').lower()
         if cmd == '0':
             addr = input('Enter an address in the form BOOK1 C1:V1-V2, C2:V1-V2; BOOK2 C1:V1-V2\n> ')  # e.g.   Genesis 1   Genesis 1:14   Genesis 1:14-16   Genesis 1:14-16; Exodus 2:5
-
             # Genesis 1:14-16; Exodus 2:5
             collection = []
             addrs = addr.split(';')
-            print(addrs)
             for book in addrs:
                 book = book.strip()
                 bname = book[:book.find(' ')]
