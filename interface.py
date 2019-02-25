@@ -166,8 +166,10 @@ Q - Quit')
             just_entered = True
             location = 'portion'
         elif cmd == '6':
-            c = int(input('Enter a chapter number to delete:\n> '))
-            current_object.chapters.remove(current_object.chapters[c-1])
+            c = input('Enter a chapter number or range of numbers as X-Y to delete:\n> ')
+            chaps = [current_object.chapters[chap-1] for chap in ranger(c)]
+            for chap in chaps:
+                current_object.chapters.remove(chap)
         elif cmd == '7':
             p = int(input('Enter a portion number to delete:\n> '))
             current_object.portions.remove(current_object.portions[p-1])
