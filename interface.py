@@ -348,16 +348,18 @@ Q - Quit')
         print('\nBook:', current_object.chapter.book.anthology.name)
         print('There are %s notes available for this verse.' % len(current_object.commentaries+current_object.notes))
         print('\n%s %s:%s' % (current_object.chapter.book.english, current_object.chapter.number, current_object.number))
-        print(current_object.english)
         print(current_object.hebrew)
-        print('Notes:')
+        print(current_object.english)
+        for alt in current_object.alternate_trans:
+            print(alt[1], '(' + alt[0] + ')')
+        print('\nNotes:')
         for note in current_object.notes:
             print('    ' + note.reference + ' - ' + note.text)
         print('Commentary:')
         for note in current_object.commentaries:
             print('    ' + note.reference + ' - ' + note.text)
 
-        print('\nAvailable commands:\n\t1 - Edit translation\n\t2 - Add alternate translation\n\t3 - Add note\n\t4 - Add commentary\n\t5 - Edit Hebrew\n\t6 - View alternates\n\t\
+        print('\nAvailable commands:\n\t1 - Edit translation\n\t2 - Add alternate translation\n\t3 - Add note\n\t4 - Add commentary\n\t5 - Edit Hebrew\n\t6 - Delete commentary\n\t\
 W - Save library\n\tB - Back to '+('chapter' if location == 'verse-c' else 'portion')+'\n\tQ - Quit')
 
         just_entered = False
@@ -365,7 +367,7 @@ W - Save library\n\tB - Back to '+('chapter' if location == 'verse-c' else 'port
         if cmd == '1':
             current_object.english = input('Original translation: '+current_object.english+'\nNew translation: ')
         elif cmd == '2':
-            current_object.alternates.append((input('Enter an alternate translation:\n> '), input('Enter translation source:\n> ')))
+            current_object.alternate_trans.append((input('Enter translation source:\n> '), input('Enter alternate translation:\n> ')))
         elif cmd == '3':
             r = input('Enter the part of the verse being referenced:\n> ')
             current_object.annotate(input('Enter note:\n> '), ref=r)
@@ -375,8 +377,11 @@ W - Save library\n\tB - Back to '+('chapter' if location == 'verse-c' else 'port
         elif cmd == '5':
             current_object.hebrew = input('Current Hebrew:' + current_object.hebrew + '\nNew Hebrew: ')
         elif cmd == '6':
-            for alt in current_object.alternate_trans:
-                print('('+alt[0]+')', alt[1])
+            num = int(input('Enter a number for the note or comment to be deleted:\n> '))
+            try:
+                current_object.notes.remove(current_object.notes[num-1])
+            except IndexError:
+                current_object.commentaries.remove(current_object.commentaries[num-len(current_object.notes)-1])
         elif cmd == 'w':
             pickle.dump(library, open('tanakh.dat', 'wb'))
             print('Operation complete.')
@@ -399,4 +404,4 @@ W - Save library\n\tB - Back to '+('chapter' if location == 'verse-c' else 'port
 
     # sleep(0.1)
 
-print('\nFarewell.')
+print('Farewell.')
