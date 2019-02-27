@@ -291,7 +291,7 @@ Q - Quit')
         print('There are %s notable items in this portion' % sum([len(v.notes) for v in current_object.verses]))
         if just_entered:
             for i,verse in enumerate(current_object.verses):
-                print('(%s) %s:%s %s' % (i+1, verse.chapter.number, verse.number, verse.english) + ' (%s notes)' % (len(verse.notes)))
+                print('(%s) %s:%s    %s' % (i+1, verse.chapter.number, verse.number, verse.english) + ' (%s notables)' % (len(verse.notes)))
         print('\nAvailable commands:\n\t0 - View verse(s)\n\t1 - Open verse\n\t2 - Add portion commentary\n\t3 - List portion commentaries\n\t4 - View portion commentary\n\t5 - Delete portion commentary\n\t\
 6 - Preview notable items\n\tW - Save library\n\tB - Back to book\n\tQ - Quit')
 
