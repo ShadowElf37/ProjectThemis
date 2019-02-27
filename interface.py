@@ -188,7 +188,7 @@ Q - Quit')
             print()
         print(
 'Available commands:\n\t0 - View verse(s)\n\t1 - Add verse\n\t2 - Open Verse\n\t3 - Add chapter commentary\n\t4 - List chapter commentaries\n\t5 - View chapter commentary\n\t\
-6 - Preview verse commentaries\n\t7 - Delete chapter commentary\n\t8 - Delete verse\n\t9 - Speed fill Hebrew\n\t10 - Fill plaintext Hebrew\n\t11 - Speed fill English\n\tW - Save library\n\tB - Back to volume\n\tQ - Quit')
+6 - Preview verse commentaries\n\t7 - Delete chapter commentary\n\t8 - Delete verse\n\t9 - Speedfill Hebrew\n\t10 - Speedfill plaintext Hebrew\n\t11 - Speedfill English\n\t12 - Speedfill alternate translations\n\tW - Save library\n\tB - Back to volume\n\tQ - Quit')
 
         just_entered = False
         cmd = input('> ').lower()
@@ -256,6 +256,16 @@ Q - Quit')
                     if new == 'q':
                         break
                     verse.english = new.strip()
+        elif cmd == '12':
+            print('Type q to quit.')
+            src = input('Enter translation source:\n> ')
+            for verse in current_object.verses:
+                new = input('%s %s:%s > ' % (verse.chapter.book.english, verse.chapter.number, verse.number))
+                if new == 'q':
+                    break
+                elif not new:
+                     continue
+                verse.alternate_trans.append((src, new.strip()))
         elif cmd == 'w':
             pickle.dump(library, open('tanakh.dat', 'wb'))
             print('Operation complete.')
