@@ -2,16 +2,6 @@ import pickle
 from data import *
 from time import sleep
 
-def uheb(s):
-    return '\u202B'+s+'\u202C'
-
-def ranger(s):
-    if '-' in s:
-        num = s.split('-')
-        return range(int(num[0]), int(num[1]) + 1)
-    else:
-        return [int(s)]
-
 def general_cmd(cmd):
     global library
     if cmd == 'reload':
@@ -26,13 +16,6 @@ def general_cmd(cmd):
 
     else:
         print('That wasn\'t a valid command.')
-
-class Library:
-    def __init__(self):
-        self.books = []
-
-    def add_book(self, title):
-        self.books.append(Anthology(title))
 
 try:
     library = pickle.load(open('tanakh.dat', 'rb'))

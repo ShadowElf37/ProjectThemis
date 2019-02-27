@@ -1,3 +1,21 @@
+def uheb(s):
+    return '\u202B'+s+'\u202C'
+
+def ranger(s):
+    if '-' in s:
+        num = s.split('-')
+        return range(int(num[0]), int(num[1]) + 1)
+    else:
+        return [int(s)]
+
+class Library:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, title):
+        self.books.append(Anthology(title))
+
+
 class Anthology:
     def __init__(self, name):
         self.name = name
@@ -12,6 +30,7 @@ class Anthology:
 
     def add_book(self, name_e, name_h):
         self.books.append(Book(name_e, name_h, self))
+
 
 class Book:
     def __init__(self, name_e, name_h, anthology):
@@ -45,6 +64,7 @@ class Book:
         self.chapters.append(Chapter(num, self))
         self.chapters.sort(key=lambda c: c.number)
 
+
 class Portion:
     def __init__(self, name_h, name_e, verses, book):
         self.hebrew = name_h
@@ -61,6 +81,7 @@ class Portion:
         n = Commentary(title, self, len(self.book.anthology.commentaries), text)
         self.book.anthology.commentaries.append(n)
         self.commentaries.append(n)
+
 
 class Chapter:
     def __init__(self, n, book=None):
@@ -100,6 +121,7 @@ class Chapter:
             return 'Partly untranslated'
         return 'Complete'
 
+
 class Verse:
     def __init__(self, n, text_e, text_h, chapter=None):
         self.number = n
@@ -137,6 +159,7 @@ class Note:
         self.attached = attached
         self.text = text
         self.reference = ref
+
 
 class Commentary:
     def __init__(self, title, attached, idn, text, author='Yovel Key-Cohen'):
